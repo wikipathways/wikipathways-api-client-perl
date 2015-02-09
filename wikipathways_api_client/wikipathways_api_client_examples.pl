@@ -56,7 +56,7 @@ use wikipathways_api_client;
 
 my $gpml = wikipathways_api_client::getPathwayAs("gpml","WP528");
 # print $gpml, "\n";
-my $filename = 'WP274.gpml';
+my $filename = 'WP528.gpml';
 open(my $fh, '>', $filename) or die "Could not open file '$filename' $!";
 print $fh $gpml, "\n";
 close $fh;
