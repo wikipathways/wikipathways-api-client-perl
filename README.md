@@ -10,8 +10,8 @@ Also, the following webservice API calls still need to be implemented; pull requ
 - [x] listOrganisms
 - [x] listPathways
 - [x] getPathwayInfo
-- [ ] getPathwayHistory
-- [ ] getRecentChanges
+- [x] getPathwayHistory
+- [x] getRecentChanges
 - [ ] login
 - [x] getPathwayAs
 - [ ] updatePathway
