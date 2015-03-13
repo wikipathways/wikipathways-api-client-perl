@@ -66,3 +66,24 @@ close $fh;
 # foreach my $ref (@listXref) {
 #  	print $ref, "\n";
 # }	
+
+my $pw = "WP2223";
+my @tags = 	wikipathways_api_client::getCurationTags($pw);
+
+##Test: getCurationTags
+#foreach my $tag (@tags) {
+#		for my $key (keys %$tag) {
+#			my $val = $tag->{$key};
+#			if ($key eq "pathway") {
+#				print "pathway info:\n";
+#				for my $i (keys %$val)	{
+#					my $info = $val->{$i};
+#					print "\t$i:\t$info\n";	
+#					}
+#				}
+#			else {
+#				print "$key:\t$val\n";	
+#				}
+#			}
+#			print "\n";
+#	}
