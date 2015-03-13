@@ -182,4 +182,40 @@ sub getXrefList {
 	return @list;
 }
 
+sub getCurationTags {
+	my $pathway_id = $_[0];
+	$client->GET("getCurationTags?pwId=$pathway_id");
+	my $parser = XML::LibXML->new();
+	$parser->keep_blanks(0);
+	my $doc = $parser->load_xml(string => $client->responseContent());
+	$doc->setEncoding('UTF-8');
+	my $root = $doc->documentElement();
+	my @tags = $root->childNodes();
+	
+	my @taglist; 
+	
+	foreach my $tag (@tags) {
+		my %hash;
+		foreach my $info ($tag->childNodes()){
+			if ($info->textContent()){	#Some items are blank
+				if ($info->firstChild->hasChildNodes()){  
+					my %pathway;
+					foreach my $i ($info->childNodes()){
+						$pathway{$i->localname()} = $i->textContent();
+					}
+					$hash{"pathway"} = \%pathway;
+				}
+				else {
+					$hash{$info->localname()} = $info->textContent();
+					}	
+				}
+				else {
+				$hash{$info->localname()} = $info->textContent();  
+					}	
+			}
+		push(@taglist, \%hash);	
+		}	
+		return @taglist;
+}
+
 1;
