@@ -21,7 +21,7 @@ Also, the following webservice API calls still need to be implemented; pull requ
 - [ ] findInteractions
 - [ ] saveCurationTag
 - [ ] removeCurationTag
-- [ ] getCurationTags
+- [x] getCurationTags
 - [ ] getCurationTagsByName
 - [ ] getColoredPathway
 - [x] getXrefList
