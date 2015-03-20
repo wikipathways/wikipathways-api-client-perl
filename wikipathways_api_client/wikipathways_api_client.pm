@@ -218,6 +218,43 @@ sub getCurationTags {
 		return @taglist;
 }
 
+sub getCurationTagsByName {
+	my $tag = $_[0];
+	$client->GET("getCurationTagsByName?tagName=$tag");
+	my $parser = XML::LibXML->new();
+	$parser->keep_blanks(0);
+	my $doc = $parser->load_xml(string => $client->responseContent());
+	$doc->setEncoding('UTF-8');
+	my $root = $doc->documentElement();
+	my @tags = $root->childNodes();
+	
+	my @taglist; 
+	
+	foreach my $tag (@tags) {
+		my %hash;
+		foreach my $info ($tag->childNodes()){
+			if ($info->textContent()){	#Need to check for this since some items are blank
+				if ($info->firstChild->hasChildNodes()){  
+					my %pathway;
+					foreach my $i ($info->childNodes()){
+						$pathway{$i->localname()} = $i->textContent();
+					}
+					$hash{"pathway"} = \%pathway;
+				}
+				else{
+					$hash{$info->localname()} = $info->textContent();
+					}	
+				}
+				else 
+					{
+				$hash{$info->localname()} = $info->textContent();  
+					}	
+			}
+		push(@taglist, \%hash);	
+		}	
+		return @taglist;
+}
+
 sub login{
 		my $user = $_[0];
         my $password= $_[1];
