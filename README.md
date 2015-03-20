@@ -22,7 +22,7 @@ Also, the following webservice API calls still need to be implemented; pull requ
 - [ ] saveCurationTag
 - [ ] removeCurationTag
 - [x] getCurationTags
-- [ ] getCurationTagsByName
+- [x] getCurationTagsByName
 - [ ] getColoredPathway
 - [x] getXrefList
 - [ ] findPathwaysByLiterature
