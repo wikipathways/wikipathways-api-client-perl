@@ -12,10 +12,10 @@ Also, the following webservice API calls still need to be implemented; pull requ
 - [x] getPathwayInfo
 - [x] getPathwayHistory
 - [x] getRecentChanges
-- [ ] login
+- [x] login
 - [x] getPathwayAs
 - [ ] updatePathway
-- [ ] createPathway
+- [x] createPathway
 - [ ] findPathwaysByText
 - [ ] findPathwaysByXref
 - [ ] findInteractions
