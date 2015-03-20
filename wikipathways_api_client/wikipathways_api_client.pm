@@ -218,4 +218,42 @@ sub getCurationTags {
 		return @taglist;
 }
 
+sub login{
+		my $user = $_[0];
+        my $password= $_[1];
+
+		$client->GET("login?name=$user&pass=$password&format=xml");
+		my $parser = XML::LibXML->new();
+		$parser->keep_blanks(0); 
+		my $doc = $parser->load_xml(string => $client->responseContent());
+		$doc->setEncoding('UTF-8');
+		my $root = $doc->documentElement();
+		my $authcode = $root->firstChild->textContent();
+		return $authcode;
+}
+
+sub createPathway {
+        my $gpml = $_[0];
+        my $authcode= $_[1];
+        my $username = $_[2];
+
+		my $headers = {'Content-type' => 'application/x-www-form-urlencoded'};
+		my $params = $client->buildQuery({
+			gpml => $gpml,
+			auth => $authcode,
+			username => $username            
+		});
+		$params =~ s/\?//; # buildQuery() prepends a '?' so we strip that out
+		$client->POST('createPathway', $params , $headers);
+
+		my $parser = XML::LibXML->new();
+		$parser->keep_blanks(0); 
+		my $doc = $parser->load_xml(string => $client->responseContent());
+		$doc->setEncoding('UTF-8');
+		my $root = $doc->documentElement();
+		print $root, "\n";
+        return $root,;
+}
+
+
 1;

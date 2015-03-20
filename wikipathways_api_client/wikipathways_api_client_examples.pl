@@ -54,12 +54,11 @@ use wikipathways_api_client;
 #     print "\n";
 # }
 
-my $gpml = wikipathways_api_client::getPathwayAs("gpml","WP528");
-# print $gpml, "\n";
-my $filename = 'WP528.gpml';
-open(my $fh, '>', $filename) or die "Could not open file '$filename' $!";
-print $fh $gpml, "\n";
-close $fh;
+#my $gpml = wikipathways_api_client::getPathwayAs("gpml","WP528");
+#my $filename = 'WP528.gpml';
+#open(my $fh, '>', $filename) or die "Could not open file '$filename' $!";
+#print $fh $gpml, "\n";
+#close $fh;
 
 
 # my @listXref = wikipathways_api_client::getXrefList('WP528','En');
@@ -87,3 +86,19 @@ my @tags = 	wikipathways_api_client::getCurationTags($pw);
 #			}
 #			print "\n";
 #	}
+
+my $gpmlName = "test_create_path.gpml";
+open(my $fh, '<:encoding(UTF-8)', $gpmlName)
+or die "Could not open file '$gpmlfile' $!";
+
+my $gpmlfile ="";
+ while (my $row = <$fh>) {
+	chomp $row;
+	$gpmlfile = $gpmlfile. "$row\n";
+}
+
+my $user = "***";
+my $password = "***";
+
+my $auth = wikipathways_api_client::login($user, $password);
+my $code = wikipathways_api_client::createPathway($gpmlfile, $auth, $user)
